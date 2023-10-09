@@ -1,0 +1,14 @@
+server.port: 8761
+
+spring:
+  application:
+    name: tb-naming-server
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+
+logging:
+  pattern:
+    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"

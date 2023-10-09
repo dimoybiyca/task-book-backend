@@ -1,0 +1,31 @@
+server:
+  port: 9000
+
+spring:
+  config:
+    import: optional:configtree:/opt/app/.env
+  application:
+    name: tb-users-service
+  servlet:
+    multipart:
+      max-file-size: 10MB
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/tasksbook
+          jwk-set-uri: http://localhost:8080/realms/tasksbook/protocol/openid-connect/certs
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://naming-server/eureka
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+
+logging:
+  pattern:
+    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"

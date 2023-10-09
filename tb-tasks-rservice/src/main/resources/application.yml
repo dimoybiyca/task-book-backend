@@ -1,0 +1,48 @@
+server:
+  port: 0
+
+spring:
+  application:
+    name: tb-tasks-service
+
+  sql:
+    init:
+      platform: "postgres"
+
+  datasource:
+    url: "jdbc:postgresql://localhost:5432/tasks_book"
+    username: "postgres"
+
+  jpa:
+    database: postgresql
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/tasksbook
+          jwk-set-uri: http://localhost:8080/realms/tasksbook/protocol/openid-connect/certs
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+
+management:
+  tracing:
+    sampling:
+      probability: 1
+
+logging:
+  pattern:
+    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
+  level:
+    web: trace
+

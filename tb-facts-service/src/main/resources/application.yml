@@ -1,0 +1,24 @@
+server:
+  port: 0
+
+spring:
+  application:
+    name: tb-facts-service
+  datasource:
+    url: "jdbc:postgresql://localhost:5432/facts"
+    username: "postgres"
+    driver-class-name: org.postgresql.Driver
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+
+logging:
+  pattern:
+    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
